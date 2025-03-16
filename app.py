@@ -1,29 +1,30 @@
-from flask import Flask, g
+from flask import Flask, g, render_template
 import sqlite3
 
 app = Flask(__name__)
-
-DATABASE = 'Games.db'
+DATABASE = 'Games.db'  # Assuming you save the database as Games.db
 
 def get_db():
-    if 'db' not in g:
-        g.db = sqlite3.connect(DATABASE)
-        g.db.row_factory = sqlite3.Row
-    return g.db
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE)
+        db.row_factory = sqlite3.Row
+    return db
 
 @app.teardown_appcontext
 def close_connection(exception):
-    db = g.pop('db', None)
+    db = getattr(g, '_database', None)
     if db is not None:
         db.close()
 
 @app.route("/")
 def index():
     cursor = get_db().cursor()
-    sql = "SELECT * FROM contents"
+    sql = "SELECT * FROM games"  # Corrected table name to 'games'
     cursor.execute(sql)
     results = cursor.fetchall()
-    return str([dict(row) for row in results])
+
+    return render_template("index.html", games=results)
 
 if __name__ == "__main__":
     app.run(debug=True)

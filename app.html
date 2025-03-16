@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game List</title>
+</head>
+<body>
+    <h1>Games</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Game ID</th>
+                <th>Game Title</th>
+                <th>Price</th>
+                <th>Release Date</th>
+                <th>Age Rating</th>
+                <th>Player Count</th>
+                <th>Game Maker</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for game in games %}
+            <tr>
+                <td>{{ game['game_id'] }}</td>
+                <td>{{ game['game_title'] }}</td>
+                <td>{{ game['price'] }}</td>
+                <td>{{ game['release_date'] }}</td>
+                <td>{{ game['age_rating'] }}</td>
+                <td>{{ game['player_count'] }}</td>
+                <td>{{ game['game_maker'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
