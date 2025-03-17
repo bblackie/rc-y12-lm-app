@@ -22,7 +22,7 @@ def index():
     cursor = get_db().cursor()
     sql = "SELECT * FROM games"
     cursor.execute(sql)
-    results = cursor.fetchall
+    results = cursor.fetchall()
     
     print(results)
 
