@@ -2,7 +2,7 @@ from flask import Flask, g, render_template
 import sqlite3
 
 app = Flask(__name__)
-DATABASE = 'Games.db'  # Assuming you save the database as Games.db
+DATABASE = 'Games.db'
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -20,11 +20,13 @@ def close_connection(exception):
 @app.route("/")
 def index():
     cursor = get_db().cursor()
-    sql = "SELECT * FROM games"  # Corrected table name to 'games'
+    sql = "SELECT * FROM games"
     cursor.execute(sql)
-    results = cursor.fetchall()
+    results = cursor.fetchall
+    
+    print(results)
 
-    return render_template("index.html", games=results)
+    return render_template("index.html", games=results)     
 
 if __name__ == "__main__":
     app.run(debug=True)
