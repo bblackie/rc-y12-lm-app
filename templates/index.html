@@ -19,25 +19,20 @@
             </tr>
         </thead>
         <tbody>
-            {% for game in games %}
-            <tr>
-                <td>{{ game['game_id'] }}</td>
-                <td>{{ game['game_title'] }}</td>
-                <td>{{ game['price'] }}</td>
-                <td>{{ game['release_date'] }}</td>
-                <td>{{ game['age_rating'] }}</td>
-                <td>{{ game['player_count'] }}</td>
-                <td>{{ game['game_maker'] }}</td>
-            </tr>
- 
-            {% endfor %}        
-        </tbody>
-    </table>
-    
-    <!--
-    {% for game_title in games %}
-        <div>{{ game[2] }}</div>
-    {% endfor %}
-    -->
+    {% for game in games %}
+    <tr>
+        <td>{{ game['game_id'] }}</td>
+        <td>{{ game['game_title'] }}</td>
+        <td>{{ game['price'] }}</td>
+        <td>{{ game['release_date'] }}</td>
+        <td>{{ game['age_rating'] }}</td>
+        <td>{{ game['player_count'] }}</td>
+        <td>{{ game['game_maker'] }}</td>
+    </tr>
+
+    {% endfor %}        
+</tbody>
+</table>
+
 </body>
 </html>

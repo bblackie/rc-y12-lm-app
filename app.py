@@ -28,7 +28,7 @@ def index():
     
     print("Results:", results)
 
-    return render_template("listing.html", games=results) 
+    return render_template("index.html", games=results) 
 
 if __name__ == "__main__":
     app.run(debug=True)
