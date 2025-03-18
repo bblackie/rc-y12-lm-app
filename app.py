@@ -20,13 +20,15 @@ def close_connection(exception):
 @app.route("/")
 def index():
     cursor = get_db().cursor()
-    sql = "SELECT * FROM games"
+    sql ='''SELECT game_title, price, release_date, rating.label, game_maker FROM games
+                JOIN rating
+                ON games.age_rating = rating.rating_id'''
     cursor.execute(sql)
     results = cursor.fetchall()
     
-    print(results)
+    print("Results:", results)
 
-    return render_template("index.html", games=results) 
+    return render_template("listing.html", games=results) 
 
 if __name__ == "__main__":
     app.run(debug=True)
