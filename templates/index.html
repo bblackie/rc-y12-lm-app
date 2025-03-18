@@ -5,11 +5,20 @@
 </head>
 <body>
     <h1>Games</h1>
-    
+
+    <form method="GET">
+        <label for="age_rating">Age Rating:</label>
+        <input type="number" name="age_rating" id="age_rating" value="{{ age_rating_filter }}">
+
+        <label for="price">Price:</label>
+        <input type="text" name="price" id="price" value="{{ price_filter }}">
+
+        <button type="submit">Filter</button>
+    </form>
+
     <table>
         <thead>
             <tr>
-                <th>Game ID</th>
                 <th>Game Title</th>
                 <th>Price</th>
                 <th>Release Date</th>
@@ -19,20 +28,17 @@
             </tr>
         </thead>
         <tbody>
-    {% for game in games %}
-    <tr>
-        <td>{{ game['game_id'] }}</td>
-        <td>{{ game['game_title'] }}</td>
-        <td>{{ game['price'] }}</td>
-        <td>{{ game['release_date'] }}</td>
-        <td>{{ game['age_rating'] }}</td>
-        <td>{{ game['player_count'] }}</td>
-        <td>{{ game['game_maker'] }}</td>
-    </tr>
-
-    {% endfor %}        
-</tbody>
-</table>
-
+        {% for game in games %}
+            <tr>
+                <td>{{ game['game_title'] }}</td>
+                <td>{{ game['price'] }}</td>
+                <td>{{ game['release_date'] }}</td>
+                <td>{{ game['age_rating'] }}</td>
+                <td>{{ game['player_count'] }}</td>
+                <td>{{ game['game_maker'] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
