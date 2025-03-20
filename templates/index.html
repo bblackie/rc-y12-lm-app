@@ -8,10 +8,20 @@
 
     <form method="GET">
         <label for="age_rating">Age Rating:</label>
-        <input type="number" name="age_rating" id="age_rating" value="{{ age_rating_filter }}">
+        <select name="age_rating" id="age_rating">
+            <option value="">All</option>
+            {% for rating in age_ratings %}
+            <option value="{{ rating }}" {% if rating|string == age_rating_filter %}selected{% endif %}>{{ rating }}</option>
+            {% endfor %}
+        </select>
 
         <label for="price">Price:</label>
-        <input type="text" name="price" id="price" value="{{ price_filter }}">
+        <select name="price" id="price">
+            <option value="">All</option>
+            {% for p in prices %}
+            <option value="{{ p }}" {% if p == price_filter %}selected{% endif %}>{{ p }}</option>
+            {% endfor %}
+        </select>
 
         <button type="submit">Filter</button>
     </form>

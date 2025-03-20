@@ -50,18 +50,37 @@ def index():
         price = request.args.get('price')
 
         if age_rating:
-            sql += " AND age_rating = ?"
-            params.append(age_rating)
+            try:
+                age_rating_int = int(age_rating)
+                sql += " AND age_rating = ?"
+                params.append(age_rating_int)
+            except ValueError:
+                pass
 
         if price:
-            sql += " AND price LIKE ?"
-            params.append(f"%{price}%")
+            sql += " AND price = ?"
+            params.append(price)
 
         cursor.execute(sql, params)
         results = cursor.fetchall()
 
+
+        cursor.execute("SELECT DISTINCT age_rating FROM games ORDER BY age_rating")
+        age_ratings = [row['age_rating'] for row in cursor.fetchall()]
+
+
+        cursor.execute("SELECT DISTINCT price FROM games ORDER BY price")
+        prices = [row['price'] for row in cursor.fetchall()]
+
         print("Results:", results)
-        return render_template("index.html", games=results, age_rating_filter=age_rating, price_filter=price)
+        return render_template(
+            "index.html",
+            games=results,
+            age_rating_filter=age_rating,
+            price_filter=price,
+            age_ratings=age_ratings,
+            prices=prices,
+        )
     except sqlite3.Error as e:
         print(f"Database query error: {e}")
         return "Database query error", 500
