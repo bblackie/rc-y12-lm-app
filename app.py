@@ -34,14 +34,15 @@ def index():
         cursor = db.cursor()
         sql = """
             SELECT 
-                game_id,
-                game_title, 
-                price, 
-                release_date, 
-                age_rating, 
-                game_maker,
-                player_count
+                games.game_id,
+                games.game_title, 
+                games.price, 
+                games.release_date, 
+                rating.label as age_rating, 
+                games.game_maker,
+                games.player_count
             FROM games
+            JOIN rating ON games.age_rating = rating.rating_id
             WHERE 1=1  -- Start with a true condition
         """
         params = []
@@ -50,24 +51,18 @@ def index():
         price = request.args.get('price')
 
         if age_rating:
-            try:
-                age_rating_int = int(age_rating)
-                sql += " AND age_rating = ?"
-                params.append(age_rating_int)
-            except ValueError:
-                pass
+            sql += " AND rating.label = ?"
+            params.append(age_rating)
 
         if price:
-            sql += " AND price = ?"
+            sql += " AND games.price = ?"
             params.append(price)
 
         cursor.execute(sql, params)
         results = cursor.fetchall()
 
-
-        cursor.execute("SELECT DISTINCT age_rating FROM games ORDER BY age_rating")
-        age_ratings = [row['age_rating'] for row in cursor.fetchall()]
-
+        cursor.execute("SELECT DISTINCT label FROM rating ORDER BY display_order")
+        age_ratings = [row['label'] for row in cursor.fetchall()]
 
         cursor.execute("SELECT DISTINCT price FROM games ORDER BY price")
         prices = [row['price'] for row in cursor.fetchall()]

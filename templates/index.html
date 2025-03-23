@@ -1,54 +1,54 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Game List</title>
-</head>
-<body>
-    <h1>Games</h1>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Game List</title>
+    </head>
+    <body>
+        <h1>Games</h1>
 
-    <form method="GET">
-        <label for="age_rating">Age Rating:</label>
-        <select name="age_rating" id="age_rating">
-            <option value="">All</option>
-            {% for rating in age_ratings %}
-            <option value="{{ rating }}" {% if rating|string == age_rating_filter %}selected{% endif %}>{{ rating }}</option>
+        <form method="GET">
+            <label for="age_rating">Age Rating:</label>
+            <select name="age_rating" id="age_rating">
+                <option value="">All</option>
+                {% for rating in age_ratings %}
+                <option value="{{ rating }}" {% if rating|string == age_rating_filter %}selected{% endif %}>{{ rating }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="price">Price:</label>
+            <select name="price" id="price">
+                <option value="">All</option>
+                {% for p in prices %}
+                <option value="{{ p }}" {% if p == price_filter %}selected{% endif %}>{{ p }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Filter</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Game Title</th>
+                    <th>Price</th>
+                    <th>Release Date</th>
+                    <th>Age Rating</th>
+                    <th>Player Count</th>
+                    <th>Game Maker</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for game in games %}
+                <tr>
+                    <td>{{ game['game_title'] }}</td>
+                    <td>{{ game['price'] }}</td>
+                    <td>{{ game['release_date'] }}</td>
+                    <td>{{ game['age_rating'] }}</td>
+                    <td>{{ game['player_count'] }}</td>
+                    <td>{{ game['game_maker'] }}</td>
+                </tr>
             {% endfor %}
-        </select>
-
-        <label for="price">Price:</label>
-        <select name="price" id="price">
-            <option value="">All</option>
-            {% for p in prices %}
-            <option value="{{ p }}" {% if p == price_filter %}selected{% endif %}>{{ p }}</option>
-            {% endfor %}
-        </select>
-
-        <button type="submit">Filter</button>
-    </form>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Game Title</th>
-                <th>Price</th>
-                <th>Release Date</th>
-                <th>Age Rating</th>
-                <th>Player Count</th>
-                <th>Game Maker</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for game in games %}
-            <tr>
-                <td>{{ game['game_title'] }}</td>
-                <td>{{ game['price'] }}</td>
-                <td>{{ game['release_date'] }}</td>
-                <td>{{ game['age_rating'] }}</td>
-                <td>{{ game['player_count'] }}</td>
-                <td>{{ game['game_maker'] }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</body>
-</html>
+            </tbody>
+        </table>
+    </body>
+    </html>
