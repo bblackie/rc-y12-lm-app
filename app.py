@@ -78,7 +78,7 @@ def index():
         )
     except sqlite3.Error as e:
         print(f"Database query error: {e}")
-        return "Database query error", 500
+        return "Database query error", 500  
     except Exception as e:
         print(f"General error: {e}")
         return "Internal server error", 500
