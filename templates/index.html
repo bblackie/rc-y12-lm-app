@@ -1,15 +1,41 @@
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Game List</title>
-    </head>
-    <body>
-        <h1>Games</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Games</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .search-bar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Games</h1>
+
+    <div class="search-bar-container">
+        <form method="GET">
+            <input type="text" name="search" placeholder="Search games..." value="{{ search_query }}">
+            <button type="submit">Search</button>
+        </form>
 
         <form method="GET">
             <label for="age_rating">Age Rating:</label>
             <select name="age_rating" id="age_rating">
-                <option value="">All</option>
+                <option value="">select</option>
                 {% for rating in age_ratings %}
                 <option value="{{ rating }}" {% if rating|string == age_rating_filter %}selected{% endif %}>{{ rating }}</option>
                 {% endfor %}
@@ -17,7 +43,7 @@
 
             <label for="price">Price:</label>
             <select name="price" id="price">
-                <option value="">All</option>
+                <option value="">select</option>
                 {% for p in prices %}
                 <option value="{{ p }}" {% if p == price_filter %}selected{% endif %}>{{ p }}</option>
                 {% endfor %}
@@ -25,30 +51,31 @@
 
             <button type="submit">Filter</button>
         </form>
+    </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Game Title</th>
-                    <th>Price</th>
-                    <th>Release Date</th>
-                    <th>Age Rating</th>
-                    <th>Player Count</th>
-                    <th>Game Maker</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for game in games %}
-                <tr>
-                    <td>{{ game['game_title'] }}</td>
-                    <td>{{ game['price'] }}</td>
-                    <td>{{ game['release_date'] }}</td>
-                    <td>{{ game['age_rating'] }}</td>
-                    <td>{{ game['player_count'] }}</td>
-                    <td>{{ game['game_maker'] }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </body>
-    </html>
+    <table>
+        <thead>
+            <tr>
+                <th>Game Title</th>
+                <th>Price</th>
+                <th>Release Date</th>
+                <th>Age Rating</th>
+                <th>Player Count</th>
+                <th>Game Maker</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for game in games %}
+            <tr>
+                <td>{{ game['game_title'] }}</td>
+                <td>{{ game['price'] }}</td>
+                <td>{{ game['release_date'] }}</td>
+                <td>{{ game['age_rating'] }}</td>
+                <td>{{ game['player_count'] }}</td>
+                <td>{{ game['game_maker'] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

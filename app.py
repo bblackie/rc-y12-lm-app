@@ -24,12 +24,13 @@ def close_connection(exception):
         except sqlite3.Error as e:
             print(f"Database close error: {e}")
 
-@app.route("/")
+@app.route("/", methods=['GET','POST'])
 def index():
     try:
         db = get_db()
         if db is None:
             return "Database connection error", 500
+
 
         cursor = db.cursor()
         sql = """
@@ -49,6 +50,7 @@ def index():
 
         age_rating = request.args.get('age_rating')
         price = request.args.get('price')
+        search_query = request.args.get('search')
 
         if age_rating:
             sql += " AND rating.label = ?"
@@ -57,6 +59,10 @@ def index():
         if price:
             sql += " AND games.price = ?"
             params.append(price)
+
+        if search_query:
+            sql += " AND games.game_title LIKE ?"
+            params.append(f"%{search_query}%")
 
         cursor.execute(sql, params)
         results = cursor.fetchall()
@@ -75,10 +81,11 @@ def index():
             price_filter=price,
             age_ratings=age_ratings,
             prices=prices,
+            search_query=search_query,
         )
     except sqlite3.Error as e:
         print(f"Database query error: {e}")
-        return "Database query error", 500  
+        return "Database query error", 500
     except Exception as e:
         print(f"General error: {e}")
         return "Internal server error", 500
