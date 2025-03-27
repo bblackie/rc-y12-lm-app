@@ -1,18 +1,18 @@
 .search-bar-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
 }
 
 .search-bar-container form:first-child {
-    flex-grow: 1;
-    margin-right: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .search-bar-container form:last-child {
     display: flex;
     align-items: center;
+    margin-left: 10px; /* Add some space between filter and search */
 }
 
 .search-bar-container input[type="text"] {
@@ -36,4 +36,19 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-left: 5px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
 }

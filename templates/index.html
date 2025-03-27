@@ -2,26 +2,7 @@
 <html>
 <head>
     <title>Games</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .search-bar-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Games</h1>
@@ -65,16 +46,16 @@
             </tr>
         </thead>
         <tbody>
-        {% for game in games %}
-            <tr>
-                <td>{{ game['game_title'] }}</td>
-                <td>{{ game['price'] }}</td>
-                <td>{{ game['release_date'] }}</td>
-                <td>{{ game['age_rating'] }}</td>
-                <td>{{ game['player_count'] }}</td>
-                <td>{{ game['game_maker'] }}</td>
-            </tr>
-        {% endfor %}
+            {% for game in games %}
+                <tr>
+                    <td>{{ game['game_title'] }}</td>
+                    <td>{{ game['price'] }}</td>
+                    <td>{{ game['release_date'] }}</td>
+                    <td>{{ game['age_rating'] }}</td>
+                    <td>{{ game['player_count'] }}</td>
+                    <td>{{ game['game_maker'] }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 </body>
